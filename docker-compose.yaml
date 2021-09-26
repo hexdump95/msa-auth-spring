@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  msa-auth-spring:
+    build:
+      context: .
+      dockerfile: Dockerfile.develop
+    command: "mvn spring-boot:run"
+    ports: 
+      - 8080:8080
+    volumes:
+      - $HOME/.m2:/root/.m2
+      - ./:/app
+      - target:/app/target
+    container_name: msa-auth-spring-dev
+
+volumes:
+  target:

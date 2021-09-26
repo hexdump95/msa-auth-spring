@@ -1,0 +1,4 @@
+FROM maven:3.8-adoptopenjdk-11
+
+WORKDIR /app
+COPY . .
