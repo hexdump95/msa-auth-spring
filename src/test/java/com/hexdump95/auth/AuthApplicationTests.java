@@ -1,4 +1,4 @@
-package com.hexdump.auth;
+package com.hexdump95.auth;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

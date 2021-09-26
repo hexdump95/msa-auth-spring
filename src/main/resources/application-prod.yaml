@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      uri: ${DB_URL}
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
