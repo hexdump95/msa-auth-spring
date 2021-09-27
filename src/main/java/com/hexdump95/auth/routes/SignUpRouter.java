@@ -26,7 +26,7 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 @Configuration
 public class SignUpRouter {
 
-    private static final String SIGNUP_URL = "/api/signUp";
+    private static final String SIGNUP_USER_URL = "/api/signUp";
     
     private final UserService userService;
 
@@ -38,13 +38,12 @@ public class SignUpRouter {
     public RouterFunction<ServerResponse> signUpRouterFunction() {
         return route()
                 .POST(
-                        SIGNUP_URL,
+                        SIGNUP_USER_URL,
                         headers(this::apiVersion1),
                         this::handlerSignUp,
                         this::docSignUp
                 ).build();
     }
-
 
     private boolean apiVersion1(ServerRequest.Headers headers) {
         return headers.header("accept").stream()
