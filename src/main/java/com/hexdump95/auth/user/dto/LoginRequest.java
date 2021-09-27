@@ -1,12 +1,11 @@
-package com.hexdump95.auth.model.dto;
+package com.hexdump95.auth.user.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class SignUpRequest {
+public class LoginRequest {
     private String username;
     private String password;
-    private String email;
 }

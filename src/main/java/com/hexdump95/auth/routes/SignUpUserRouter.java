@@ -1,8 +1,8 @@
 package com.hexdump95.auth.routes;
 
-import com.hexdump95.auth.model.UserService;
-import com.hexdump95.auth.model.dto.SignUpRequest;
-import com.hexdump95.auth.model.dto.SignUpResponse;
+import com.hexdump95.auth.user.UserService;
+import com.hexdump95.auth.user.dto.SignUpRequest;
+import com.hexdump95.auth.user.dto.JwtResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -24,18 +24,18 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.server.RequestPredicates.headers;
 
 @Configuration
-public class SignUpRouter {
+public class SignUpUserRouter {
 
-    private static final String SIGNUP_USER_URL = "/api/signUp";
+    public static final String SIGNUP_USER_URL = "/api/signUp";
     
     private final UserService userService;
 
-    public SignUpRouter(UserService userService) {
+    public SignUpUserRouter(UserService userService) {
         this.userService = userService;
     }
 
     @Bean
-    public RouterFunction<ServerResponse> signUpRouterFunction() {
+    public RouterFunction<ServerResponse> signUpUserRouterFunction() {
         return route()
                 .POST(
                         SIGNUP_USER_URL,
@@ -52,8 +52,10 @@ public class SignUpRouter {
     }
 
     private Mono<ServerResponse> handlerSignUp(ServerRequest serverRequest) {
-        return ServerResponse.ok().contentType(APPLICATION_JSON)
-                .bodyValue(userService.signUp());
+        return serverRequest.bodyToMono(SignUpRequest.class)
+                .map(userService::signUp)
+                .flatMap(r -> ServerResponse.ok().contentType(APPLICATION_JSON)
+                        .body(r, JwtResponse.class));
     }
 
     private void docSignUp(Builder ops) {
@@ -65,7 +67,7 @@ public class SignUpRouter {
                         .content(contentBuilder()
                                 .mediaType("application/json;v=1")
                                 .schema(schemaBuilder()
-                                        .type("object").implementation(SignUpResponse.class))
+                                        .type("object").implementation(JwtResponse.class))
                         ).responseCode("200")
                 );
     }

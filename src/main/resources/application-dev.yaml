@@ -1,7 +1,10 @@
+jwt:
+  secret: asdsadasdsadasadsaasdasdasd
+
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/auth
+      uri: mongodb://localhost:27017/db_auth?retryWrites=true
 
 springdoc:
   swagger-ui:

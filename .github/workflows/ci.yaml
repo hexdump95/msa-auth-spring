@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mongo:
-        image: mongo:5.0-focal
+        image: mongo:4.0-xenial
     steps:
       - uses: actions/checkout@v2
 
@@ -40,7 +40,9 @@ jobs:
         if: success()
         run: > 
           mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar 
-          -Dsonar.projectKey=hexdump95_ms-auth-spring
+          -Dsonar.projectKey=hexdump95_msa-auth-spring
+          -Dsonar.organization=hexdump95
+          -Dsonar.host.url=https://sonarcloud.io
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

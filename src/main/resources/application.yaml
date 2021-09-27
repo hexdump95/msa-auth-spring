@@ -1,5 +1,15 @@
+jwt:
+  issuer: hexdump95
+
 server:
   port: 8080
+
 spring:
   profiles:
     default: dev
+  data:
+    mongodb:
+      auto-index-creation: true
+logging:
+  level:
+    org.springframework.security: TRACE
