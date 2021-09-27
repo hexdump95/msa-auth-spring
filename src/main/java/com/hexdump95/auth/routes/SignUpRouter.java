@@ -35,7 +35,7 @@ public class SignUpRouter {
     }
 
     @Bean
-    public RouterFunction<ServerResponse> signUpRouter() {
+    public RouterFunction<ServerResponse> signUpRouterFunction() {
         return route()
                 .POST(
                         SIGNUP_URL,
@@ -60,11 +60,8 @@ public class SignUpRouter {
     private void docSignUp(Builder ops) {
         ops
                 .tag("signUp")
-
                 .operationId("signUp")
-
                 .requestBody(requestBodyBuilder().implementation(SignUpRequest.class))
-
                 .response(responseBuilder()
                         .content(contentBuilder()
                                 .mediaType("application/json;v=1")
